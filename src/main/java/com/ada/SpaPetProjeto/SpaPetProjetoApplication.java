@@ -10,4 +10,5 @@ public class SpaPetProjetoApplication {
 		SpringApplication.run(SpaPetProjetoApplication.class, args);
 	}
 
+
 }

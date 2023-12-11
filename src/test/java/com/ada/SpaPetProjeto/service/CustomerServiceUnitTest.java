@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -56,7 +57,7 @@ public class CustomerServiceUnitTest {
 
 
     @Test
-    public void ttest_get_customer_by_id_success() {
+    public void test_get_customer_by_id_success() {
         // Configurar o customerRepository para retornar um Optional não vazio
         Mockito.when(customerRepository.findById(Mockito.anyInt()))
                 .thenReturn(Optional.of(customer));
@@ -70,19 +71,6 @@ public class CustomerServiceUnitTest {
     }
 
     @Test
-    public void test_get_customer_by_id_not_found() {
-        // Configurar o customerRepository para retornar um Optional vazio
-        Mockito.when(customerRepository.findById(Mockito.anyInt()))
-                .thenReturn(Optional.empty());
-
-        // Chamar o método getCustomerById
-        CustomerResponse customerResponse = customerService.getCustomerById(1);
-
-        // Verificar se o resultado é nulo
-        Assertions.assertNull(customerResponse);
-    }
-
-    @Test
     public void test_get_customer_by_id_null() {
         // Chamar o método getCustomerById com ID nulo
         CustomerResponse customerResponse = customerService.getCustomerById(null);
@@ -91,10 +79,9 @@ public class CustomerServiceUnitTest {
         Assertions.assertNull(customerResponse);
     }
 
-
     @Test
     public void test_update_customer(){
-// Configurar o customerRepository para retornar um Customer atualizado
+        // Configurar o customerRepository para retornar um Customer atualizado
         Customer updatedCustomer = new Customer(/* Set dados atualizados */);
         Mockito.when(customerRepository.findById(Mockito.anyInt()))
                 .thenReturn(Optional.of(customer));

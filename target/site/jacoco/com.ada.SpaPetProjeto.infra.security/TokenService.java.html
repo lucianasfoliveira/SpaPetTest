@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TokenService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SpaPetProjeto</a> &gt; <a href="index.source.html" class="el_package">com.ada.SpaPetProjeto.infra.security</a> &gt; <span class="el_source">TokenService.java</span></div><h1>TokenService.java</h1><pre class="source lang-java linenums">package com.ada.SpaPetProjeto.infra.security;
+
+import com.ada.SpaPetProjeto.model.Customer;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+
+@Service
+<span class="fc" id="L15">public class TokenService {</span>
+
+    @Value(&quot;${config.token.secret}&quot;)
+    private String secretKey;
+    public String tokenGenerate(Customer customer){
+        try {
+<span class="nc" id="L21">            Algorithm algorithm = Algorithm.HMAC512(secretKey);</span>
+<span class="nc" id="L22">            return JWT.create()</span>
+<span class="nc" id="L23">                    .withSubject(customer.getEmail())</span>
+<span class="nc" id="L24">                    .withClaim(&quot;id&quot;, customer.getId())</span>
+<span class="nc" id="L25">                    .withClaim(&quot;name&quot;, customer.getName())</span>
+<span class="nc" id="L26">                    .withExpiresAt(new Date(System.currentTimeMillis() + 3600000))</span>
+<span class="nc" id="L27">                    .withIssuer(&quot;Ada Tech&quot;)</span>
+<span class="nc" id="L28">                    .sign(algorithm);</span>
+<span class="nc" id="L29">        }catch (JWTCreationException exception) {</span>
+<span class="nc" id="L30">            throw new RuntimeException(&quot;erro to generate token&quot;, exception);</span>
+        }
+    }
+
+    public String getSubject(String token){
+        try{
+<span class="nc" id="L36">            Algorithm algorithm = Algorithm.HMAC512(secretKey);</span>
+
+<span class="nc" id="L38">            JWTVerifier verifier = JWT.require(algorithm)</span>
+<span class="nc" id="L39">                    .withIssuer(&quot;Ada Tech&quot;)</span>
+<span class="nc" id="L40">                    .build();</span>
+
+<span class="nc" id="L42">            return verifier.verify(token).getSubject();</span>
+<span class="nc" id="L43">        } catch (JWTVerificationException exception){</span>
+<span class="nc" id="L44">            throw new RuntimeException(&quot;invalid token&quot;);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

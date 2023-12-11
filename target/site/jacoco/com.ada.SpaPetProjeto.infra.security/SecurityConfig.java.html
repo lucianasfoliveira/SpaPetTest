@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SpaPetProjeto</a> &gt; <a href="index.source.html" class="el_package">com.ada.SpaPetProjeto.infra.security</a> &gt; <span class="el_source">SecurityConfig.java</span></div><h1>SecurityConfig.java</h1><pre class="source lang-java linenums">package com.ada.SpaPetProjeto.infra.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+
+@Configuration
+@EnableWebSecurity
+<span class="fc" id="L21">public class SecurityConfig {</span>
+
+    @Autowired
+    SecurityFilter securityFilter;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            HandlerMappingIntrospector introspector
+    ) throws Exception {
+
+<span class="fc" id="L32">        MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);</span>
+
+<span class="fc" id="L34">        return http</span>
+<span class="fc" id="L35">                .csrf(csrf -&gt; csrf.disable())</span>
+<span class="fc" id="L36">                .sessionManagement(sess -&gt; sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))</span>
+<span class="fc" id="L37">                .authorizeHttpRequests((requests) -&gt; requests</span>
+<span class="fc" id="L38">                        .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET,&quot;/&quot;)).permitAll()</span>
+<span class="fc" id="L39">                        .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, &quot;/customer/add&quot;)).permitAll()</span>
+<span class="fc" id="L40">                        .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, &quot;/login&quot;)).permitAll()</span>
+<span class="fc" id="L41">                        .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, &quot;/customer&quot;)).hasRole(&quot;ADMIN&quot;)</span>
+<span class="fc" id="L42">                        .anyRequest().authenticated())</span>
+<span class="fc" id="L43">                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)</span>
+<span class="fc" id="L44">                .build();</span>
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+<span class="fc" id="L49">        return authenticationConfiguration.getAuthenticationManager();</span>
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+<span class="fc" id="L54">        return new BCryptPasswordEncoder();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
