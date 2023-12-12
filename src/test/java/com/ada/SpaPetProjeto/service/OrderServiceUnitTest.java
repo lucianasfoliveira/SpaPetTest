@@ -11,10 +11,11 @@ import com.ada.SpaPetProjeto.repository.TypeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyInt;
 
-
+@ExtendWith(SpringExtension.class)
 public class OrderServiceUnitTest {
     @Mock
     private OrderRepository orderRepository;
@@ -37,12 +38,9 @@ public class OrderServiceUnitTest {
     @InjectMocks
     private OrderService orderService;
 
-    private Customer customer;
-
 
     @BeforeEach
     public void setup() {
-        MockitoAnnotations.openMocks(this);
 
         Customer mockCustomer = new Customer();
         mockCustomer.setId(1);
@@ -53,11 +51,12 @@ public class OrderServiceUnitTest {
         mockOrder.setId(1);
         mockOrder.setTotalPrice(50.0);
 
-        Mockito.when(customerRepository.findById(anyInt())).thenReturn(Optional.of(mockCustomer));
-        Mockito.when(orderRepository.findById(anyInt())).thenReturn(Optional.of(mockOrder));
+        Mockito.when(customerRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(mockCustomer));
+        Mockito.when(typeRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(new Type()));
+        Mockito.when(orderRepository.save(Mockito.any(Order.class))).thenReturn(mockOrder);
     }
 
-//    @Test
+ //   @Test
 //    void test_save_order() {
 //        OrderRequest orderRequest = new OrderRequest();
 //        Customer customer = new Customer();
@@ -71,8 +70,9 @@ public class OrderServiceUnitTest {
 //
 //        Assertions.assertNotNull(orderResponse);
 //    }
+
     @Test
-    void test_get_all_orders_empty() {
+    public void test_get_all_orders_empty() {
         Mockito.when(orderRepository.findAll()).thenReturn(new ArrayList<>());
 
         List<OrderResponse> orderResponses = orderService.getAllOrders();
@@ -94,7 +94,7 @@ public class OrderServiceUnitTest {
 //    }
 
     @Test
-    void test_get_order_by_id_not_found() {
+    public void test_get_order_by_id_not_found() {
         Integer orderId = 1;
 
         Mockito.when(orderRepository.findById(orderId)).thenReturn(Optional.empty());
@@ -105,7 +105,7 @@ public class OrderServiceUnitTest {
     }
 
     @Test
-    void test_update_order() {
+    public void test_update_order() {
         Integer orderId = 1;
         OrderRequest updatedOrderRequest = new OrderRequest();
         Order existingOrder = new Order();
@@ -120,7 +120,7 @@ public class OrderServiceUnitTest {
     }
 
     @Test
-    void test_update_order_not_found() {
+    public void test_update_order_not_found() {
         Integer orderId = 1;
         OrderRequest updatedOrderRequest = new OrderRequest();
 
@@ -132,7 +132,7 @@ public class OrderServiceUnitTest {
     }
 
     @Test
-    void test_delete_order() {
+    public void test_delete_order() {
         Integer orderId = 1;
         Order existingOrder = new Order();
 
@@ -145,7 +145,7 @@ public class OrderServiceUnitTest {
     }
 
     @Test
-    void test_delete_order_not_found() {
+    public void test_delete_order_not_found() {
         Integer orderId = 1;
 
         Mockito.when(orderRepository.findById(orderId)).thenReturn(Optional.empty());
@@ -155,3 +155,4 @@ public class OrderServiceUnitTest {
         Assertions.assertFalse(result);
     }
 }
+
