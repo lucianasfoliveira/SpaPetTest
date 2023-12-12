@@ -81,8 +81,18 @@ public class CustomerServiceUnitTest {
 
     @Test
     public void test_update_customer(){
+
+
+// Configurar o customerRepository para retornar um Customer atualizado
+        Customer updatedCustomer = new Customer();
+
         // Configurar o customerRepository para retornar um Customer atualizado
-        Customer updatedCustomer = new Customer(/* Set dados atualizados */);
+       // Customer updatedCustomer = new Customer(/* Set dados atualizados */);
+
+
+        // Configurar o customerRepository para retornar um Customer atualizado
+        //Customer updatedCustomer = new Customer(/* Set dados atualizados */);
+
         Mockito.when(customerRepository.findById(Mockito.anyInt()))
                 .thenReturn(Optional.of(customer));
         Mockito.when(customerRepository.save(Mockito.any(Customer.class)))
