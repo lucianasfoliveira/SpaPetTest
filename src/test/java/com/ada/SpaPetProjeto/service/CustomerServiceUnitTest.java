@@ -56,7 +56,7 @@ public class CustomerServiceUnitTest {
 
 
     @Test
-    public void ttest_get_customer_by_id_success() {
+    public void test_get_customer_by_id_success() {
         // Configurar o customerRepository para retornar um Optional não vazio
         Mockito.when(customerRepository.findById(Mockito.anyInt()))
                 .thenReturn(Optional.of(customer));
@@ -95,7 +95,7 @@ public class CustomerServiceUnitTest {
     @Test
     public void test_update_customer(){
 // Configurar o customerRepository para retornar um Customer atualizado
-        Customer updatedCustomer = new Customer(/* Set dados atualizados */);
+        Customer updatedCustomer = new Customer();
         Mockito.when(customerRepository.findById(Mockito.anyInt()))
                 .thenReturn(Optional.of(customer));
         Mockito.when(customerRepository.save(Mockito.any(Customer.class)))
