@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SpaPetProjeto</a> &gt; <a href="index.source.html" class="el_package">com.ada.SpaPetProjeto.service</a> &gt; <span class="el_source">OrderService.java</span></div><h1>OrderService.java</h1><pre class="source lang-java linenums">package com.ada.SpaPetProjeto.service;
+
+
+import com.ada.SpaPetProjeto.controller.dto.OrderRequest;
+import com.ada.SpaPetProjeto.controller.dto.OrderResponse;
+import com.ada.SpaPetProjeto.model.Customer;
+import com.ada.SpaPetProjeto.model.Order;
+import com.ada.SpaPetProjeto.model.Type;
+import com.ada.SpaPetProjeto.repository.CustomerRepository;
+import com.ada.SpaPetProjeto.repository.OrderRepository;
+import com.ada.SpaPetProjeto.repository.TypeRepository;
+import com.ada.SpaPetProjeto.utils.OrderConvert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+@Service
+public class OrderService {
+    @Autowired
+    OrderRepository orderRepository;
+    @Autowired
+    TypeRepository typeRepository;
+
+    @Autowired
+    CustomerRepository customerRepository;
+
+<span class="fc" id="L29">    public OrderService(OrderRepository orderRepository) {</span>
+<span class="fc" id="L30">        this.orderRepository = orderRepository;</span>
+<span class="fc" id="L31">    }</span>
+
+    public OrderResponse saveOrder(OrderRequest orderRequest){
+<span class="nc" id="L34">        Customer customer = customerRepository.findById(orderRequest.getCustomerId()).get();</span>
+<span class="nc" id="L35">        List&lt;Type&gt; types = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L36">        List&lt;Integer&gt; typesId = orderRequest.getServiceId();</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        for(Integer id: typesId){</span>
+<span class="nc" id="L38">            Type type = typeRepository.findById(id).get();</span>
+<span class="nc" id="L39">            types.add(type);</span>
+<span class="nc" id="L40">        }</span>
+<span class="nc" id="L41">        Order order = OrderConvert.toEntity(orderRequest, customer, types);</span>
+<span class="nc" id="L42">        return OrderConvert.toResponse(orderRepository.save(order));</span>
+    }
+
+    public List&lt;OrderResponse&gt; getAllOrders() {
+<span class="fc" id="L46">        List&lt;Order&gt; orders = orderRepository.findAll();</span>
+<span class="fc" id="L47">        return OrderConvert.toResponseList(orders);</span>
+    }
+
+    public OrderResponse getOrderById(Integer id) {
+<span class="fc" id="L51">        Optional&lt;Order&gt; orderResponse = orderRepository.findById(id);</span>
+<span class="fc" id="L52">        return orderResponse.map(OrderConvert::toResponse)</span>
+<span class="fc" id="L53">                .orElse(null);</span>
+    }
+
+
+    public Order updateOrder(Integer orderId, OrderRequest updatedOrderRequest) {
+<span class="fc" id="L58">        Order existingOrder = orderRepository.findById(orderId).orElse(null);</span>
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (existingOrder != null) {</span>
+<span class="fc" id="L61">            existingOrder.setTotalPrice(updatedOrderRequest.getTotalPrice());</span>
+<span class="pc bpc" id="L62" title="3 of 4 branches missed.">            if (updatedOrderRequest.getServiceId() != null &amp;&amp; !updatedOrderRequest.getServiceId().isEmpty()) {</span>
+<span class="nc" id="L63">                List&lt;Type&gt; updatedServices = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                for (Integer typeId : updatedOrderRequest.getServiceId()) {</span>
+<span class="nc" id="L65">                    Type service = typeRepository.findById(typeId).orElse(null);</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">                    if (service != null) {</span>
+<span class="nc" id="L67">                        updatedServices.add(service);</span>
+                    }
+<span class="nc" id="L69">                }</span>
+<span class="nc" id="L70">                existingOrder.setServiceId(updatedServices);</span>
+            }
+<span class="fc" id="L72">            return orderRepository.save(existingOrder);</span>
+        }
+
+<span class="fc" id="L75">        return null;</span>
+    }
+
+    public boolean deleteOrder(Integer orderId) {
+<span class="fc" id="L79">        Order existingOrder = orderRepository.findById(orderId).orElse(null);</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        if (existingOrder != null) {</span>
+<span class="fc" id="L81">            orderRepository.delete(existingOrder);</span>
+<span class="fc" id="L82">            return true;</span>
+        }
+<span class="fc" id="L84">        return false;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

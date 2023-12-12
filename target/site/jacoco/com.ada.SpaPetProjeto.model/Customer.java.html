@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Customer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SpaPetProjeto</a> &gt; <a href="index.source.html" class="el_package">com.ada.SpaPetProjeto.model</a> &gt; <span class="el_source">Customer.java</span></div><h1>Customer.java</h1><pre class="source lang-java linenums">package com.ada.SpaPetProjeto.model;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
+
+@Getter
+<span class="pc" id="L13">@Setter</span>
+<span class="nc" id="L14">@AllArgsConstructor</span>
+<span class="fc" id="L15">@NoArgsConstructor</span>
+<span class="nc" id="L16">@Builder</span>
+@Entity
+@Table(name = &quot;CLIENTES&quot;)
+public class Customer implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="fc" id="L23">    private Integer id;</span>
+
+    @Column(name = &quot;nome&quot;, nullable = false)
+<span class="fc" id="L26">    private String name;</span>
+
+    @Column(name = &quot;endereco&quot;)
+<span class="nc" id="L29">    private String address;</span>
+
+    @Column(name = &quot;numerotelefone&quot;)
+<span class="nc" id="L32">    private String phoneNumber;</span>
+
+    @Column(name = &quot;email&quot;, nullable = false)
+<span class="fc" id="L35">    private String email;</span>
+
+    @Getter
+    @Column(name = &quot;password&quot;, nullable = false)
+    private String password;
+
+
+    @Override
+    public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() {
+<span class="nc" id="L44">        return List.of(new SimpleGrantedAuthority(&quot;CUSTOMER&quot;));</span>
+    }
+
+    @Override
+    public String getPassword() {
+<span class="nc" id="L49">        return this.password;</span>
+    }
+
+    @Override
+    public String getUsername() {
+<span class="nc" id="L54">        return this.email;</span>
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+<span class="nc" id="L59">        return true;</span>
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+<span class="nc" id="L64">        return true;</span>
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+<span class="nc" id="L69">        return true;</span>
+    }
+
+    @Override
+    public boolean isEnabled() {
+<span class="nc" id="L74">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

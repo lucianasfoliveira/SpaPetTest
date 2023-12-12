@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderConvert.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SpaPetProjeto</a> &gt; <a href="index.source.html" class="el_package">com.ada.SpaPetProjeto.utils</a> &gt; <span class="el_source">OrderConvert.java</span></div><h1>OrderConvert.java</h1><pre class="source lang-java linenums">package com.ada.SpaPetProjeto.utils;
+
+import com.ada.SpaPetProjeto.controller.dto.OrderRequest;
+import com.ada.SpaPetProjeto.controller.dto.OrderResponse;
+import com.ada.SpaPetProjeto.model.Customer;
+import com.ada.SpaPetProjeto.model.Order;
+import com.ada.SpaPetProjeto.model.Type;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+<span class="nc" id="L13">public class OrderConvert {</span>
+    public static Order toEntity(OrderRequest orderRequest, Customer customer, List&lt;Type&gt; types){
+<span class="nc" id="L15">        Order order = new Order();</span>
+<span class="nc" id="L16">        order.setTotalPrice(orderRequest.getTotalPrice());</span>
+<span class="nc" id="L17">        order.setCustomerId(customer);</span>
+<span class="nc" id="L18">        order.setServiceId(types);</span>
+<span class="nc" id="L19">        return order;</span>
+    }
+
+    public static OrderResponse toResponse(Order order){
+<span class="nc" id="L23">        OrderResponse orderResponse = new OrderResponse();</span>
+<span class="nc" id="L24">        orderResponse.setId(order.getId());</span>
+<span class="nc" id="L25">        orderResponse.setCustomer(order.getCustomerId());</span>
+
+<span class="nc" id="L27">        List&lt;Integer&gt; typeIds = order.getServiceId().stream()</span>
+<span class="nc" id="L28">                .map(Type::getId)</span>
+<span class="nc" id="L29">                .collect(Collectors.toList());</span>
+
+<span class="nc" id="L31">        orderResponse.setServiceId(typeIds);</span>
+<span class="nc" id="L32">        orderResponse.setTotalPrice(order.getTotalPrice());</span>
+<span class="nc" id="L33">        return orderResponse;</span>
+    }
+
+    public static List&lt;OrderResponse&gt; toResponseList(List&lt;Order&gt; orders){
+<span class="fc" id="L37">        List&lt;OrderResponse&gt; ordersResponse = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        for(Order order: orders){</span>
+<span class="nc" id="L39">            ordersResponse.add(toResponse(order));</span>
+<span class="nc" id="L40">        }</span>
+
+<span class="fc" id="L42">        return ordersResponse;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
