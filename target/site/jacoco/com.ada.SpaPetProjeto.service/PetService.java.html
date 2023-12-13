@@ -22,30 +22,30 @@ public class PetService {
 <span class="fc" id="L22">    }</span>
 
     public Pet savePet(PetRequest petRequest) {
-<span class="nc" id="L25">        Pet pet = PetConvert.toEntity(petRequest);</span>
-<span class="nc" id="L26">        return petRepository.save(pet);</span>
+<span class="fc" id="L25">        Pet pet = PetConvert.toEntity(petRequest);</span>
+<span class="fc" id="L26">        return petRepository.save(pet);</span>
     }
 
     public List&lt;PetResponse&gt; getAllPets() {
-<span class="nc" id="L30">        List&lt;Pet&gt; pets = petRepository.findAll();</span>
-<span class="nc" id="L31">        return PetConvert.toResponseList(pets);</span>
+<span class="fc" id="L30">        List&lt;Pet&gt; pets = petRepository.findAll();</span>
+<span class="fc" id="L31">        return PetConvert.toResponseList(pets);</span>
     }
 
     public PetResponse getPetById(Integer id) {
-<span class="nc" id="L35">        Optional&lt;Pet&gt; petResponse = petRepository.findById(id);</span>
-<span class="nc" id="L36">        return petResponse.map(PetConvert::toResponse)</span>
-<span class="nc" id="L37">                .orElse(null);</span>
+<span class="fc" id="L35">        Optional&lt;Pet&gt; petResponse = petRepository.findById(id);</span>
+<span class="fc" id="L36">        return petResponse.map(PetConvert::toResponse)</span>
+<span class="fc" id="L37">                .orElse(null);</span>
     }
 
     public PetResponse updatePet(Integer id, PetRequest petRequest ){
-<span class="nc" id="L41">        Pet pet = PetConvert.toEntity(petRequest);</span>
-<span class="nc" id="L42">        pet.setId(id);</span>
-<span class="nc" id="L43">        return PetConvert.toResponse(petRepository.save(pet));</span>
+<span class="fc" id="L41">        Pet pet = PetConvert.toEntity(petRequest);</span>
+<span class="fc" id="L42">        pet.setId(id);</span>
+<span class="fc" id="L43">        return PetConvert.toResponse(petRepository.save(pet));</span>
     }
     public void deletePet(Integer id){
-<span class="nc" id="L46">        Pet pet = petRepository.findById(id).orElseThrow();</span>
-<span class="nc" id="L47">        petRepository.delete(pet);</span>
-<span class="nc" id="L48">    }</span>
+<span class="fc" id="L46">        Pet pet = petRepository.findById(id).orElseThrow();</span>
+<span class="fc" id="L47">        petRepository.delete(pet);</span>
+<span class="fc" id="L48">    }</span>
 
 
 }

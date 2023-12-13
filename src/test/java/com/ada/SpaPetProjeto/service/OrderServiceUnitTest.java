@@ -19,6 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,14 +36,11 @@ public class OrderServiceUnitTest {
     @Mock
     private CustomerRepository customerRepository;
 
-
     @InjectMocks
     private OrderService orderService;
 
-
     @BeforeEach
     public void setup() {
-
         Customer mockCustomer = new Customer();
         mockCustomer.setId(1);
         mockCustomer.setName("Luciana");
@@ -56,8 +54,6 @@ public class OrderServiceUnitTest {
         Mockito.when(typeRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(new Type()));
         Mockito.when(orderRepository.save(Mockito.any(Order.class))).thenReturn(mockOrder);
     }
-
-
 
  //   @Test
 //    void test_save_order() {
@@ -84,18 +80,6 @@ public class OrderServiceUnitTest {
         Assertions.assertTrue(orderResponses.isEmpty());
     }
 
-//    @Test
-//    void test_get_order_by_id_success() {
-//        Integer orderId = 1;
-//        Order mockOrder = new Order();
-//
-//        Mockito.when(orderRepository.findById(orderId)).thenReturn(Optional.of(mockOrder));
-//
-//        OrderResponse orderResponse = orderService.getOrderById(orderId);
-//
-//        Assertions.assertNotNull(orderResponse);
-//    }
-
     @Test
     public void test_get_order_by_id_not_found() {
         Integer orderId = 1;
@@ -114,12 +98,32 @@ public class OrderServiceUnitTest {
         Order existingOrder = new Order();
 
         Mockito.when(orderRepository.findById(orderId)).thenReturn(Optional.of(existingOrder));
-        Mockito.when(typeRepository.findById(anyInt())).thenReturn(Optional.of(new Type(/* Provide necessary data */)));
+        Mockito.when(typeRepository.findById(anyInt())).thenReturn(Optional.of(new Type()));
         Mockito.when(orderRepository.save(Mockito.any(Order.class))).thenReturn(existingOrder);
 
         Order updatedOrder = orderService.updateOrder(orderId, updatedOrderRequest);
 
         Assertions.assertNotNull(updatedOrder);
+    }
+
+    @Test
+    public void test_update_existing_order() {
+        Integer orderId = 1;
+        OrderRequest updatedOrderRequest = new OrderRequest();
+        updatedOrderRequest.setTotalPrice(75.0);
+
+        Order existingOrder = new Order();
+        existingOrder.setId(orderId);
+        existingOrder.setTotalPrice(50.0);
+
+        Mockito.when(orderRepository.findById(orderId)).thenReturn(Optional.of(existingOrder));
+        Mockito.when(typeRepository.findById(anyInt())).thenReturn(Optional.of(new Type()));
+        Mockito.when(orderRepository.save(Mockito.any(Order.class))).thenReturn(existingOrder);
+
+        Order updatedOrder = orderService.updateOrder(orderId, updatedOrderRequest);
+
+        Assertions.assertNotNull(updatedOrder);
+        Assertions.assertEquals(75.0, updatedOrder.getTotalPrice());
     }
 
     @Test
@@ -133,6 +137,34 @@ public class OrderServiceUnitTest {
 
         Assertions.assertNull(updatedOrder);
     }
+
+    @Test
+    public void test_update_order_with_services() {
+        Integer orderId = 1;
+        OrderRequest updatedOrderRequest = new OrderRequest();
+        updatedOrderRequest.setTotalPrice(75.0);
+        updatedOrderRequest.setServiceId(Arrays.asList(1, 2)); // Supondo que existam IDs de serviço válidos
+
+        Order existingOrder = new Order();
+        existingOrder.setId(orderId);
+        existingOrder.setTotalPrice(50.0);
+
+        Type mockType1 = new Type();
+        mockType1.setId(1);
+
+        Type mockType2 = new Type();
+        mockType2.setId(2);
+
+        Mockito.when(orderRepository.findById(orderId)).thenReturn(Optional.of(existingOrder));
+        Mockito.when(typeRepository.findById(1)).thenReturn(Optional.of(mockType1));
+        Mockito.when(typeRepository.findById(2)).thenReturn(Optional.of(mockType2));
+
+        Order updatedOrder = orderService.updateOrder(orderId, updatedOrderRequest);
+
+        Assertions.assertNotNull(updatedOrder);
+        // Adicione mais verificações se necessário para garantir que os serviços foram atualizados corretamente
+    }
+
 
     @Test
     public void test_delete_order() {

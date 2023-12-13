@@ -5,7 +5,7 @@ import lombok.*;
 
 
 @Getter
-<span class="nc" id="L8">@Setter</span>
+<span class="fc" id="L8">@Setter</span>
 <span class="nc" id="L9">@AllArgsConstructor</span>
 <span class="fc" id="L10">@NoArgsConstructor</span>
 <span class="nc" id="L11">@Builder</span>
@@ -14,19 +14,19 @@ import lombok.*;
 public class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="nc" id="L17">    private Integer id;</span>
+<span class="fc" id="L17">    private Integer id;</span>
 
     @Column(name = &quot;nomeservico&quot;, nullable = false)
-<span class="nc" id="L20">    private String serviceName;</span>
+<span class="fc" id="L20">    private String serviceName;</span>
 
     @Column(name = &quot;descricaoservico&quot;, nullable = false)
 <span class="nc" id="L23">    private String serviceDescription;</span>
 
     @Column(name = &quot;precoservico&quot;, nullable = false)
-<span class="nc" id="L26">    private double servicePrice;</span>
+<span class="fc" id="L26">    private double servicePrice;</span>
 
     public void setActive(boolean b) {
-<span class="nc" id="L29">    }</span>
+<span class="fc" id="L29">    }</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

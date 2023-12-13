@@ -1,3 +1,6 @@
+com\ada\SpaPetProjeto\service\AuthenticationServiceUnitTest.class
 com\ada\SpaPetProjeto\service\OrderServiceUnitTest.class
 com\ada\SpaPetProjeto\service\CustomerServiceUnitTest.class
 com\ada\SpaPetProjeto\SpaPetProjetoApplicationTests.class
+com\ada\SpaPetProjeto\service\PetServiceUnitTest.class
+com\ada\SpaPetProjeto\service\TypeServiceUnitTest.class

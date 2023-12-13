@@ -10,78 +10,74 @@ import com.ada.SpaPetProjeto.repository.CustomerRepository;
 import com.ada.SpaPetProjeto.repository.OrderRepository;
 import com.ada.SpaPetProjeto.repository.TypeRepository;
 import com.ada.SpaPetProjeto.utils.OrderConvert;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+<span class="fc" id="L21">@AllArgsConstructor</span>
 @Service
 public class OrderService {
-    @Autowired
-    OrderRepository orderRepository;
-    @Autowired
-    TypeRepository typeRepository;
+    private final OrderRepository orderRepository;
+    private final TypeRepository typeRepository;
+    private final CustomerRepository customerRepository;
 
-    @Autowired
-    CustomerRepository customerRepository;
-
-<span class="fc" id="L29">    public OrderService(OrderRepository orderRepository) {</span>
-<span class="fc" id="L30">        this.orderRepository = orderRepository;</span>
-<span class="fc" id="L31">    }</span>
 
     public OrderResponse saveOrder(OrderRequest orderRequest){
-<span class="nc" id="L34">        Customer customer = customerRepository.findById(orderRequest.getCustomerId()).get();</span>
-<span class="nc" id="L35">        List&lt;Type&gt; types = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L36">        List&lt;Integer&gt; typesId = orderRequest.getServiceId();</span>
-<span class="nc bnc" id="L37" title="All 2 branches missed.">        for(Integer id: typesId){</span>
-<span class="nc" id="L38">            Type type = typeRepository.findById(id).get();</span>
-<span class="nc" id="L39">            types.add(type);</span>
-<span class="nc" id="L40">        }</span>
-<span class="nc" id="L41">        Order order = OrderConvert.toEntity(orderRequest, customer, types);</span>
-<span class="nc" id="L42">        return OrderConvert.toResponse(orderRepository.save(order));</span>
+<span class="nc" id="L30">        Customer customer = customerRepository.findById(orderRequest.getCustomerId()).get();</span>
+<span class="nc" id="L31">        List&lt;Type&gt; types = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L32">        List&lt;Integer&gt; typesId = orderRequest.getServiceId();</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        for(Integer id: typesId){</span>
+<span class="nc" id="L34">            Type type = typeRepository.findById(id).get();</span>
+<span class="nc" id="L35">            types.add(type);</span>
+<span class="nc" id="L36">        }</span>
+<span class="nc" id="L37">        Order order = OrderConvert.toEntity(orderRequest, customer, types);</span>
+<span class="nc" id="L38">        return OrderConvert.toResponse(orderRepository.save(order));</span>
     }
 
     public List&lt;OrderResponse&gt; getAllOrders() {
-<span class="fc" id="L46">        List&lt;Order&gt; orders = orderRepository.findAll();</span>
-<span class="fc" id="L47">        return OrderConvert.toResponseList(orders);</span>
+<span class="fc" id="L42">        List&lt;Order&gt; orders = orderRepository.findAll();</span>
+<span class="fc" id="L43">        return OrderConvert.toResponseList(orders);</span>
     }
 
     public OrderResponse getOrderById(Integer id) {
-<span class="fc" id="L51">        Optional&lt;Order&gt; orderResponse = orderRepository.findById(id);</span>
-<span class="fc" id="L52">        return orderResponse.map(OrderConvert::toResponse)</span>
-<span class="fc" id="L53">                .orElse(null);</span>
+<span class="fc" id="L47">        Optional&lt;Order&gt; orderResponse = orderRepository.findById(id);</span>
+<span class="fc" id="L48">        return orderResponse.map(OrderConvert::toResponse)</span>
+<span class="fc" id="L49">                .orElse(null);</span>
     }
 
 
     public Order updateOrder(Integer orderId, OrderRequest updatedOrderRequest) {
-<span class="fc" id="L58">        Order existingOrder = orderRepository.findById(orderId).orElse(null);</span>
+<span class="fc" id="L54">        Order existingOrder = orderRepository.findById(orderId).orElse(null);</span>
 
-<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (existingOrder != null) {</span>
-<span class="fc" id="L61">            existingOrder.setTotalPrice(updatedOrderRequest.getTotalPrice());</span>
-<span class="pc bpc" id="L62" title="3 of 4 branches missed.">            if (updatedOrderRequest.getServiceId() != null &amp;&amp; !updatedOrderRequest.getServiceId().isEmpty()) {</span>
-<span class="nc" id="L63">                List&lt;Type&gt; updatedServices = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L64" title="All 2 branches missed.">                for (Integer typeId : updatedOrderRequest.getServiceId()) {</span>
-<span class="nc" id="L65">                    Type service = typeRepository.findById(typeId).orElse(null);</span>
-<span class="nc bnc" id="L66" title="All 2 branches missed.">                    if (service != null) {</span>
-<span class="nc" id="L67">                        updatedServices.add(service);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (existingOrder != null) {</span>
+<span class="fc" id="L57">            existingOrder.setTotalPrice(updatedOrderRequest.getTotalPrice());</span>
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">            if (updatedOrderRequest.getServiceId() != null &amp;&amp; !updatedOrderRequest.getServiceId().isEmpty()) {</span>
+<span class="fc" id="L59">                List&lt;Type&gt; updatedServices = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">                for (Integer typeId : updatedOrderRequest.getServiceId()) {</span>
+<span class="fc" id="L61">                    Type service = typeRepository.findById(typeId).orElse(null);</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">                    if (service != null) {</span>
+<span class="fc" id="L63">                        updatedServices.add(service);</span>
                     }
-<span class="nc" id="L69">                }</span>
-<span class="nc" id="L70">                existingOrder.setServiceId(updatedServices);</span>
+<span class="fc" id="L65">                }</span>
+<span class="fc" id="L66">                existingOrder.setServiceId(updatedServices);</span>
             }
-<span class="fc" id="L72">            return orderRepository.save(existingOrder);</span>
+<span class="fc" id="L68">            return orderRepository.save(existingOrder);</span>
         }
 
-<span class="fc" id="L75">        return null;</span>
+<span class="fc" id="L71">        return null;</span>
     }
 
     public boolean deleteOrder(Integer orderId) {
-<span class="fc" id="L79">        Order existingOrder = orderRepository.findById(orderId).orElse(null);</span>
-<span class="fc bfc" id="L80" title="All 2 branches covered.">        if (existingOrder != null) {</span>
-<span class="fc" id="L81">            orderRepository.delete(existingOrder);</span>
-<span class="fc" id="L82">            return true;</span>
+<span class="fc" id="L75">        Order existingOrder = orderRepository.findById(orderId).orElse(null);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (existingOrder != null) {</span>
+<span class="fc" id="L77">            orderRepository.delete(existingOrder);</span>
+<span class="fc" id="L78">            return true;</span>
         }
-<span class="fc" id="L84">        return false;</span>
+<span class="fc" id="L80">        return false;</span>
     }
 
 }

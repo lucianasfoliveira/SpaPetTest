@@ -10,25 +10,21 @@ import com.ada.SpaPetProjeto.repository.CustomerRepository;
 import com.ada.SpaPetProjeto.repository.OrderRepository;
 import com.ada.SpaPetProjeto.repository.TypeRepository;
 import com.ada.SpaPetProjeto.utils.OrderConvert;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+@AllArgsConstructor
 @Service
 public class OrderService {
-    @Autowired
-    OrderRepository orderRepository;
-    @Autowired
-    TypeRepository typeRepository;
+    private final OrderRepository orderRepository;
+    private final TypeRepository typeRepository;
+    private final CustomerRepository customerRepository;
 
-    @Autowired
-    CustomerRepository customerRepository;
-
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
 
     public OrderResponse saveOrder(OrderRequest orderRequest){
         Customer customer = customerRepository.findById(orderRequest.getCustomerId()).get();

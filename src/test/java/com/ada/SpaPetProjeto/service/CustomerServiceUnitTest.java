@@ -8,11 +8,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
@@ -29,20 +27,18 @@ public class CustomerServiceUnitTest {
     @InjectMocks
     private CustomerService customerService;
 
+
     private Customer customer;
 
     @BeforeEach
     public void setup() {
-        customer = new Customer(/* Set necessary data */);
+        customer = new Customer();
 
         Mockito.when(customerRepository.findAll()).thenReturn(Arrays.asList(customer));
     }
 
-
-
     @Test
-    public void test_save_customer(){
-
+    public void test_save_type() {
 
     }
 
@@ -53,7 +49,6 @@ public class CustomerServiceUnitTest {
 
         Assertions.assertFalse(customerResponses.isEmpty());
     }
-
 
 
     @Test
