@@ -34,7 +34,6 @@ public class Customer implements UserDetails {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Getter
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -53,6 +52,7 @@ public class Customer implements UserDetails {
     public String getUsername() {
         return this.email;
     }
+
 
 
 

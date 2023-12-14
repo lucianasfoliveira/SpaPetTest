@@ -9,7 +9,7 @@ SpaPetProjeto,com.ada.SpaPetProjeto.controller.dto,OrderResponse,31,0,0,0,6,0,9,
 SpaPetProjeto,com.ada.SpaPetProjeto.controller.dto,LoginRequest,17,0,0,0,4,0,5,0,5,0
 SpaPetProjeto,com.ada.SpaPetProjeto.controller.dto,OrderRequest,7,17,0,0,1,4,2,5,2,5
 SpaPetProjeto,com.ada.SpaPetProjeto.controller.dto,TypeResponse,9,15,0,0,3,2,3,4,3,4
-SpaPetProjeto,com.ada.SpaPetProjeto.controller.dto,CustomerResponse,9,15,0,0,3,2,3,4,3,4
+SpaPetProjeto,com.ada.SpaPetProjeto.controller.dto,CustomerResponse,0,36,0,0,0,6,0,8,0,8
 SpaPetProjeto,com.ada.SpaPetProjeto.controller.dto,PetRequest,16,27,0,0,1,5,4,5,4,5
 SpaPetProjeto,com.ada.SpaPetProjeto.controller.dto,PetResponse,9,15,0,0,3,2,3,4,3,4
 SpaPetProjeto,com.ada.SpaPetProjeto.controller.dto,TokenResponse,6,0,0,0,1,0,1,0,1,0
@@ -30,10 +30,10 @@ SpaPetProjeto,com.ada.SpaPetProjeto.model,Type.TypeBuilder,45,0,0,0,1,0,7,0,7,0
 SpaPetProjeto,com.ada.SpaPetProjeto.model,Type,22,29,0,0,3,6,3,9,3,9
 SpaPetProjeto,com.ada.SpaPetProjeto.model,Customer,59,28,0,0,11,5,13,8,13,8
 SpaPetProjeto,com.ada.SpaPetProjeto.infra.security,SecurityConfig,0,94,0,0,0,15,0,7,0,7
-SpaPetProjeto,com.ada.SpaPetProjeto.infra.security,SecurityFilter,52,3,6,0,14,1,6,1,3,1
+SpaPetProjeto,com.ada.SpaPetProjeto.infra.security,SecurityFilter,33,22,4,2,7,8,4,3,1,3
 SpaPetProjeto,com.ada.SpaPetProjeto.infra.security,TokenService,56,3,0,0,17,1,2,1,2,1
 SpaPetProjeto,com.ada.SpaPetProjeto.controller,OrderController,77,3,8,0,19,1,9,1,5,1
-SpaPetProjeto,com.ada.SpaPetProjeto.controller,CustomerController,59,3,4,0,12,1,7,1,5,1
+SpaPetProjeto,com.ada.SpaPetProjeto.controller,CustomerController,11,51,2,2,2,11,2,6,0,6
 SpaPetProjeto,com.ada.SpaPetProjeto.controller,PetController,60,3,4,0,13,1,7,1,5,1
 SpaPetProjeto,com.ada.SpaPetProjeto.controller,AuthenticationController,27,3,0,0,6,1,1,1,1,1
 SpaPetProjeto,com.ada.SpaPetProjeto.controller,TypeController,69,3,2,0,15,1,6,1,5,1

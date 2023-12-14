@@ -1,3 +1,4 @@
+com\ada\SpaPetProjeto\controllers\CustomerControllerIntegrationTest.class
 com\ada\SpaPetProjeto\service\AuthenticationServiceUnitTest.class
 com\ada\SpaPetProjeto\service\OrderServiceUnitTest.class
 com\ada\SpaPetProjeto\service\CustomerServiceUnitTest.class
