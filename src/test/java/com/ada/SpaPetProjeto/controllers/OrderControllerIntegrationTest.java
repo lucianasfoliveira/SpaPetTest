@@ -30,7 +30,7 @@ public class OrderControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    public void list_order_by_id() throws Exception {
+    public void test_get_order_by_id() throws Exception {
         OrderResponse order = new OrderResponse();
         order.setId(1);
 
@@ -46,7 +46,7 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    public void list_all_orders() throws Exception {
+    public void test_get_all_orders() throws Exception {
 
         List<OrderResponse> orderResponses = Arrays.asList(
                 new OrderResponse(1, 100.0, new Customer(), Arrays.asList(1)),
@@ -62,7 +62,7 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    public void order_with_all_the_information_should_be_save() throws Exception {
+    public void test_order_with_all_the_information_should_be_save() throws Exception {
         OrderResponse orderSave = new OrderResponse();
         orderSave.setId(1);
 
@@ -85,7 +85,7 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    public void not_possible_to_validate_order_without_totalprice() throws Exception {
+    public void test_not_possible_to_validate_order_without_total_price() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/order")
                         .content("""
@@ -100,7 +100,7 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    public void not_possible_to_validate_order_without_customerId() throws Exception {
+    public void test_not_possible_to_validate_order_without_customerId() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/order")
                         .content("""
@@ -115,7 +115,7 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    public void not_possible_to_validate_order_without_serviceId() throws Exception {
+    public void test_not_possible_to_validate_order_without_serviceId() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/order")
                         .content("""
@@ -131,7 +131,7 @@ public class OrderControllerIntegrationTest {
 
 
     @Test
-    public void delete_order_by_id() throws Exception {
+    public void test_delete_order_by_id() throws Exception {
         int idOrder = 1;
 
         Mockito.when(orderService.deleteOrder(idOrder)).thenReturn(true);

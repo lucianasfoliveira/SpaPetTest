@@ -35,7 +35,7 @@ public class CustomerControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    public void not_possible_to_validate_customer_whithout_name() throws Exception {
+    public void test_not_possible_to_validate_customer_without_name() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/customer/add")
                         .content("""
@@ -51,7 +51,7 @@ public class CustomerControllerIntegrationTest {
 
 
     @Test
-    public void not_possible_to_validate_customer_whithout_email() throws Exception {
+    public void test_not_possible_to_validate_customer_without_email() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/customer/add")
                         .content("""
@@ -66,7 +66,7 @@ public class CustomerControllerIntegrationTest {
     }
 
     @Test
-    public void not_possible_to_validate_customer_whithout_password() throws Exception {
+    public void test_not_possible_to_validate_customer_without_password() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/customer/add")
                         .content("""
@@ -81,8 +81,7 @@ public class CustomerControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser
-    public void list_customer_by_id() throws Exception {
+    public void test_get_customer_by_id() throws Exception {
         CustomerResponse customer = new CustomerResponse(1, "Teste1", "teste@teste.com");
         int customerId = 1;
 
@@ -99,8 +98,7 @@ public class CustomerControllerIntegrationTest {
 
 
     @Test
-    @WithMockUser
-    public void list_all_customers() throws Exception {
+    public void test_get_all_customers() throws Exception {
         // Defina clientes existentes no seu repositório mockado ou simulado para validar a listagem.
         List<CustomerResponse> customers = Arrays.asList(
                 new CustomerResponse(1, "teste1@teste.com", "123456789"),
@@ -116,7 +114,7 @@ public class CustomerControllerIntegrationTest {
 
 
     @Test
-    public void customer_with_all_the_information_should_be_saved() throws Exception {
+    public void test_customer_with_all_the_information_should_be_saved() throws Exception {
         CustomerResponse savedCustomer = new CustomerResponse();
         savedCustomer.setId(1);
 
@@ -144,8 +142,7 @@ public class CustomerControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser
-    public void delete_customer_by_id() throws Exception {
+    public void test_delete_customer_by_id() throws Exception {
         int customerId = 1;
         Mockito.doNothing().when(customerService).deleteCustomer(1);
 
@@ -157,8 +154,7 @@ public class CustomerControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser
-    public void update_customer_by_id() throws Exception {
+    public void test_update_customer_by_id() throws Exception {
         int customerId = 1;
 
         mockMvc.perform(
@@ -173,8 +169,6 @@ public class CustomerControllerIntegrationTest {
                                 }
                                 """)
         ).andExpect(MockMvcResultMatchers.status().isOk());
-
-
     }
 }
 

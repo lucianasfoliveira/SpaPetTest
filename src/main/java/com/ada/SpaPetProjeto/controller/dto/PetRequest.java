@@ -12,7 +12,6 @@ public class PetRequest {
     @NotBlank()
     private String name;
     private String type;
-    private Double weigth;
     private Integer id;
 
 }

@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -45,7 +46,6 @@ public class PetControllerIntegrationTest {
                                 {
                                     "name": "Buddy",
                                     "type": "Dog",
-                                    "weight": 10.5
                                 }
                                 """)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -105,5 +105,80 @@ public class PetControllerIntegrationTest {
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$[1].type").value("cat")
         );
+    }
+
+    @Test
+    public void not_possible_to_validate_pet_without_name() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/pet/add")
+                        .content("""
+                                {
+                                    "type" : (dog),
+                                    "id": [1],
+                                }
+                                """)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    public void not_possible_to_validate_pet_without_type() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/pet/add")
+                        .content("""
+                                {
+                                    "name" : (Thor),
+                                    "id": [1],
+                                }
+                                """)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    public void not_possible_to_validate_pet_without_id() throws Exception {
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/pet/add")
+                        .content("""
+                                {
+                                    "name": (Thor),
+                                    "type" : (dog),
+                                }
+                                """)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    public void update_pet_by_id() throws Exception {
+        int petId = 1;
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/pet/{id}", petId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "name": "Thor",
+                                    "type": "dog",
+                                    "id": "1"
+                                }
+                                """)
+        ).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void delete_pet_by_id() throws Exception {
+        int petId = 1;
+        Mockito.doNothing().when(petService).deletePet(1);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/pet/{id}", petId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

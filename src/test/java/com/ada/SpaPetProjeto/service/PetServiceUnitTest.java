@@ -41,7 +41,7 @@ class PetServiceUnitTest {
         Mockito.when(petRepository.save(Mockito.any(Pet.class))).thenReturn(pet);
 
         // Chamar o método savePet e verificar se o resultado não é nulo
-        Pet savedPet = petService.savePet(new PetRequest("teste","teste", 2.5,5));
+        Pet savedPet = petService.savePet(new PetRequest("teste","teste", 2));
         Assertions.assertNotNull(savedPet);
         // Adicione verificações adicionais conforme necessário
     }
@@ -85,7 +85,7 @@ class PetServiceUnitTest {
         Mockito.when(petRepository.save(Mockito.any(Pet.class))).thenReturn(updatedPet);
 
         // Chamar o método updatePet
-        PetResponse petResponse = petService.updatePet(1, new PetRequest("teste", "teste", 2.5, 5));
+        PetResponse petResponse = petService.updatePet(1, new PetRequest("teste", "teste", 2));
 
         // Verificar se o resultado é não nulo
         Assertions.assertNotNull(petResponse);

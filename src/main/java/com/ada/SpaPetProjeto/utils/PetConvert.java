@@ -17,7 +17,6 @@ public class PetConvert {
         Pet pet = new Pet();
         pet.setName(petDTO.getName());
         pet.setType(petDTO.getType());
-        pet.setRace(String.valueOf(petDTO.getWeigth()));
         pet.setId(petDTO.getId());
         return pet;
     }
