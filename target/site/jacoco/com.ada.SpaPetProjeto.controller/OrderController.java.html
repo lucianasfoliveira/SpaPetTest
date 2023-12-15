@@ -23,26 +23,26 @@ import java.util.List;
 
     @PostMapping
     public ResponseEntity&lt;OrderResponse&gt; saveOrder(@RequestBody OrderRequest orderRequest){
-<span class="nc" id="L26">        OrderResponse orderResponse = orderService.saveOrder(orderRequest);</span>
-<span class="nc" id="L27">        return ResponseEntity.created(URI.create(&quot;/order/&quot;+orderResponse.getId())).body(orderResponse);</span>
+<span class="fc" id="L26">        OrderResponse orderResponse = orderService.saveOrder(orderRequest);</span>
+<span class="fc" id="L27">        return ResponseEntity.created(URI.create(&quot;/order/&quot;+orderResponse.getId())).body(orderResponse);</span>
     }
 
 
     @GetMapping(&quot;/list&quot;)
     public ResponseEntity&lt;?&gt; getAllOrders() {
-<span class="nc" id="L33">        List&lt;OrderResponse&gt; orderResponses = orderService.getAllOrders();</span>
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (orderResponses.isEmpty()) {</span>
+<span class="fc" id="L33">        List&lt;OrderResponse&gt; orderResponses = orderService.getAllOrders();</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (orderResponses.isEmpty()) {</span>
 <span class="nc" id="L35">            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(&quot;Essa lista está vazia&quot;);</span>
         } else {
-<span class="nc" id="L37">            return ResponseEntity.ok(orderResponses);</span>
+<span class="fc" id="L37">            return ResponseEntity.ok(orderResponses);</span>
         }
     }
 
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;?&gt; getOrderById(@PathVariable Integer id) {
-<span class="nc" id="L43">        OrderResponse orderResponse = orderService.getOrderById(id);</span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (orderResponse != null) {</span>
-<span class="nc" id="L45">            return new ResponseEntity&lt;&gt;(orderResponse, HttpStatus.OK);</span>
+<span class="fc" id="L43">        OrderResponse orderResponse = orderService.getOrderById(id);</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if (orderResponse != null) {</span>
+<span class="fc" id="L45">            return new ResponseEntity&lt;&gt;(orderResponse, HttpStatus.OK);</span>
         } else {
 <span class="nc" id="L47">            return new ResponseEntity&lt;&gt;(&quot;Pedido não encontrado&quot;, HttpStatus.NOT_FOUND);</span>
         }
@@ -61,9 +61,9 @@ import java.util.List;
 
     @DeleteMapping(&quot;/{Id}&quot;)
     public ResponseEntity&lt;Void&gt; deleteOrder(@PathVariable Integer Id) {
-<span class="nc" id="L64">        boolean deleted = orderService.deleteOrder(Id);</span>
-<span class="nc bnc" id="L65" title="All 2 branches missed.">        if (deleted) {</span>
-<span class="nc" id="L66">            return ResponseEntity.noContent().build();</span>
+<span class="fc" id="L64">        boolean deleted = orderService.deleteOrder(Id);</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (deleted) {</span>
+<span class="fc" id="L66">            return ResponseEntity.noContent().build();</span>
         } else {
 <span class="nc" id="L68">            return ResponseEntity.notFound().build();</span>
         }
