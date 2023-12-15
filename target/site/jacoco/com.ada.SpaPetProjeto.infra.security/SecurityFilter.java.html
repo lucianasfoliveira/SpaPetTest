@@ -25,19 +25,19 @@ import java.io.IOException;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-<span class="fc" id="L28">        String token =  getToken(request);</span>
-<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if(token != null){</span>
+<span class="nc" id="L28">        String token =  getToken(request);</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if(token != null){</span>
 <span class="nc" id="L30">            String subject = tokenService.getSubject(token);</span>
 <span class="nc" id="L31">            authenticate(subject);</span>
         }
 
-<span class="fc" id="L34">        filterChain.doFilter(request, response);</span>
-<span class="fc" id="L35">    }</span>
+<span class="nc" id="L34">        filterChain.doFilter(request, response);</span>
+<span class="nc" id="L35">    }</span>
 
     private String getToken(HttpServletRequest request){
-<span class="fc" id="L38">        String token = request.getHeader(&quot;Authorization&quot;);</span>
-<span class="pc bpc" id="L39" title="3 of 4 branches missed.">        if(token == null || !token.startsWith(&quot;Bearer &quot;)){</span>
-<span class="fc" id="L40">            return null;</span>
+<span class="nc" id="L38">        String token = request.getHeader(&quot;Authorization&quot;);</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">        if(token == null || !token.startsWith(&quot;Bearer &quot;)){</span>
+<span class="nc" id="L40">            return null;</span>
         }
 <span class="nc" id="L42">        return token.substring(7);</span>
     }

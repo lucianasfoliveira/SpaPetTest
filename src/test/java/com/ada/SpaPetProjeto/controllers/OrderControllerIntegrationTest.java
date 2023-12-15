@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc (addFilters=false)
 public class OrderControllerIntegrationTest {
 
     @MockBean
@@ -30,7 +30,6 @@ public class OrderControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    @WithMockUser
     public void list_order_by_id() throws Exception {
         OrderResponse order = new OrderResponse();
         order.setId(1);
@@ -47,7 +46,6 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser
     public void list_all_orders() throws Exception {
 
         List<OrderResponse> orderResponses = Arrays.asList(
@@ -64,7 +62,6 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser
     public void order_with_all_the_information_should_be_save() throws Exception {
         OrderResponse orderSave = new OrderResponse();
         orderSave.setId(1);
@@ -88,7 +85,6 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser
     public void not_possible_to_validate_order_without_totalprice() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/order")
@@ -104,7 +100,6 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser
     public void not_possible_to_validate_order_without_customerId() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/order")
@@ -120,7 +115,6 @@ public class OrderControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser
     public void not_possible_to_validate_order_without_serviceId() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/order")
@@ -137,7 +131,6 @@ public class OrderControllerIntegrationTest {
 
 
     @Test
-    @WithMockUser
     public void delete_order_by_id() throws Exception {
         int idOrder = 1;
 

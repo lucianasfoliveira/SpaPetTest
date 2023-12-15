@@ -25,7 +25,7 @@ import java.util.List;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc (addFilters=false)
 public class CustomerControllerIntegrationTest {
 
     @MockBean

@@ -21,28 +21,28 @@ import java.util.List;
 
     @PostMapping(&quot;/add&quot;)
     public ResponseEntity&lt;PetResponse&gt; savePet(@RequestBody PetRequest petRequest) {
-<span class="nc" id="L24">        Pet savedPet = petService.savePet(petRequest);</span>
-<span class="nc" id="L25">        PetResponse petResponse = PetConvert.toResponse(savedPet);</span>
-<span class="nc" id="L26">        return new ResponseEntity&lt;&gt;(petResponse, HttpStatus.CREATED);</span>
+<span class="fc" id="L24">        Pet savedPet = petService.savePet(petRequest);</span>
+<span class="fc" id="L25">        PetResponse petResponse = PetConvert.toResponse(savedPet);</span>
+<span class="fc" id="L26">        return new ResponseEntity&lt;&gt;(petResponse, HttpStatus.CREATED);</span>
     }
 
 
     @GetMapping(&quot;/list&quot;)
     public ResponseEntity&lt;?&gt; listPets() {
-<span class="nc" id="L32">        List&lt;PetResponse&gt; petResponses = petService.getAllPets();</span>
+<span class="fc" id="L32">        List&lt;PetResponse&gt; petResponses = petService.getAllPets();</span>
 
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (petResponses.isEmpty()) {</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (petResponses.isEmpty()) {</span>
 <span class="nc" id="L35">            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(&quot;Essa lista está vazia&quot;);</span>
         } else {
-<span class="nc" id="L37">            return ResponseEntity.ok(petResponses);</span>
+<span class="fc" id="L37">            return ResponseEntity.ok(petResponses);</span>
         }
     }
 
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;?&gt; getPetById(@PathVariable Integer id) {
-<span class="nc" id="L43">        PetResponse petResponse = petService.getPetById(id);</span>
-<span class="nc bnc" id="L44" title="All 2 branches missed.">        if (petResponse != null) {</span>
-<span class="nc" id="L45">            return new ResponseEntity&lt;&gt;(petResponse, HttpStatus.OK);</span>
+<span class="fc" id="L43">        PetResponse petResponse = petService.getPetById(id);</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        if (petResponse != null) {</span>
+<span class="fc" id="L45">            return new ResponseEntity&lt;&gt;(petResponse, HttpStatus.OK);</span>
         } else {
 <span class="nc" id="L47">            return new ResponseEntity&lt;&gt;(&quot;Pet não encontrado&quot;, HttpStatus.NOT_FOUND);</span>
         }
