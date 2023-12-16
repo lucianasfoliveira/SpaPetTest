@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc (addFilters=false)
 public class OrderControllerIntegrationTest {
@@ -40,7 +42,7 @@ public class OrderControllerIntegrationTest {
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/order/{id}", orderId)
                                 .accept(MediaType.APPLICATION_JSON)
-                ).andExpect(MockMvcResultMatchers.status().isOk())
+                ).andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(order.getId()));
     }
 
@@ -57,7 +59,7 @@ public class OrderControllerIntegrationTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/order/list")
                         .accept(MediaType.APPLICATION_JSON)
-        ).andExpect(MockMvcResultMatchers.status().isOk());
+        ).andExpect(status().isOk());
     }
 
     @Test
@@ -79,7 +81,7 @@ public class OrderControllerIntegrationTest {
                                         """)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
-                ).andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                ).andExpect(status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
     }
 
@@ -95,7 +97,7 @@ public class OrderControllerIntegrationTest {
                                 """)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-        ).andExpect(MockMvcResultMatchers.status().isBadRequest());
+        ).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -110,7 +112,7 @@ public class OrderControllerIntegrationTest {
                                 """)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-        ).andExpect(MockMvcResultMatchers.status().isBadRequest());
+        ).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -125,7 +127,7 @@ public class OrderControllerIntegrationTest {
                                 """)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-        ).andExpect(MockMvcResultMatchers.status().isBadRequest());
+        ).andExpect(status().isBadRequest());
     }
 
 
@@ -139,26 +141,28 @@ public class OrderControllerIntegrationTest {
                 MockMvcRequestBuilders.delete("/order/{id}", idOrder)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-        ).andExpect(MockMvcResultMatchers.status().isNoContent());
+        ).andExpect(status().isNoContent());
+    }
+
+
+    @Test
+    public void test_update_order_by_id() throws Exception {
+        int orderId = 1;
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/order/{id}", orderId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "totalPrice": 150,
+                                    "customerId": 1,
+                                    "serviceId": 1
+                                }
+                                """)
+        ).andExpect(status().isBadRequest());
     }
 }
-//    @Test
-//    @WithMockUser
-//    public void update_order_by_id() throws Exception {
-//        int orderId = 1;
-//
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.put("/order/{id}", orderId)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .content("""
-//                            {
-//                                "totalPrice": 100.0,
-//                                "customerId": 1,
-//                                "serviceId": [1, 2, 3]
-//                            }
-//                            """)
-//        ).andExpect(MockMvcResultMatchers.status().isOk());
-//    }
+
 
 

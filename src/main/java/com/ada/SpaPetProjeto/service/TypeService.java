@@ -36,9 +36,10 @@ public class TypeService {
     public Type updateType(Integer id, TypeRequest typeRequest) {
         Type existingType = typeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Tipo não encontrado com o ID: " + id));
 
+        existingType.setServicePrice(typeRequest.getServicePrice());
         existingType.setServiceName(typeRequest.getServiceName());
         existingType.setServiceDescription(typeRequest.getServiceDescription());
-        existingType.setServicePrice(typeRequest.getServicePrice());
+
 
         return typeRepository.save(existingType);
     }

@@ -1,5 +1,6 @@
 package com.ada.SpaPetProjeto.controllers;
 
+
 import com.ada.SpaPetProjeto.controller.dto.TypeRequest;
 import com.ada.SpaPetProjeto.controller.dto.TypeResponse;
 import com.ada.SpaPetProjeto.model.Type;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Arrays;
 import java.util.List;
+
 
 import static org.mockito.Mockito.*;
 
@@ -160,35 +162,21 @@ public class TypeControllerIntegrationTest {
     }
 
 //    @Test
-//    public void test_update_type() throws Exception {
-//        // Arrange
+//    public void test_update_type_by_id() throws Exception {
 //        int typeId = 1;
-//        TypeRequest updatedTypeRequest = new TypeRequest();
-//        Type updatedType = new Type(typeId, "Tosa", "Tosa pequeno porte", 80);
 //
-//        Mockito.when(typeService.updateType(Mockito.eq(typeId), Mockito.any(TypeRequest.class)))
-//                .thenReturn(updatedType);
-//
-//        // Act and Assert
 //        mockMvc.perform(
-//                        MockMvcRequestBuilders.put("/types/{id}", typeId)
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                                .accept(MediaType.APPLICATION_JSON)
-//                                .content(objectMapper.writeValueAsString(updatedTypeRequest))
-//                )
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.serviceName").value(updatedType.getServiceName()))
-//                //.andExpect(MockMvcResultMatchers.jsonPath("$.serviceDescription").value(updatedType.getServiceDescription()))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$.servicePrice").value(updatedType.getServicePrice()));
-//
-//        Mockito.verify(typeService, Mockito.times(1))
-//                .updateType(
-//                        Mockito.eq(typeId),
-//                        Mockito.argThat(request ->
-//                                request.getServiceName().equals(updatedTypeRequest.getServiceName()) &&
-//                                        request.getServicePrice().equals(updatedTypeRequest.getServicePrice())
-//                        )
-//                );
+//                MockMvcRequestBuilders.put("/types/{id}", typeId)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .content("""
+//                                {
+//                                    "servicePrice": 50,
+//                                    "serviceName": "Banho",
+//                                    "serviceDescription": "Banho porte pequeno"
+//                                }
+//                                """)
+//        ).andExpect(status().isBadRequest());
 //    }
 
     @Test
