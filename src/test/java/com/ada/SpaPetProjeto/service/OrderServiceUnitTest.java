@@ -85,9 +85,7 @@ public class OrderServiceUnitTest {
         Integer orderId = 1;
 
         Mockito.when(orderRepository.findById(orderId)).thenReturn(Optional.empty());
-
         OrderResponse orderResponse = orderService.getOrderById(orderId);
-
         Assertions.assertNull(orderResponse);
     }
 
@@ -102,7 +100,6 @@ public class OrderServiceUnitTest {
         Mockito.when(orderRepository.save(Mockito.any(Order.class))).thenReturn(existingOrder);
 
         Order updatedOrder = orderService.updateOrder(orderId, updatedOrderRequest);
-
         Assertions.assertNotNull(updatedOrder);
     }
 
@@ -134,7 +131,6 @@ public class OrderServiceUnitTest {
         Mockito.when(orderRepository.findById(orderId)).thenReturn(Optional.empty());
 
         Order updatedOrder = orderService.updateOrder(orderId, updatedOrderRequest);
-
         Assertions.assertNull(updatedOrder);
     }
 
@@ -143,7 +139,7 @@ public class OrderServiceUnitTest {
         Integer orderId = 1;
         OrderRequest updatedOrderRequest = new OrderRequest();
         updatedOrderRequest.setTotalPrice(75.0);
-        updatedOrderRequest.setServiceId(Arrays.asList(1, 2)); // Supondo que existam IDs de serviço válidos
+        updatedOrderRequest.setServiceId(Arrays.asList(1, 2));
 
         Order existingOrder = new Order();
         existingOrder.setId(orderId);
@@ -162,9 +158,7 @@ public class OrderServiceUnitTest {
         Order updatedOrder = orderService.updateOrder(orderId, updatedOrderRequest);
 
         Assertions.assertNotNull(updatedOrder);
-        // Adicione mais verificações se necessário para garantir que os serviços foram atualizados corretamente
     }
-
 
     @Test
     public void test_delete_order() {

@@ -53,68 +53,38 @@ public class CustomerServiceUnitTest {
 
     @Test
     public void test_get_customer_by_id_success() {
-        // Configurar o customerRepository para retornar um Optional não vazio
         Mockito.when(customerRepository.findById(Mockito.anyInt()))
                 .thenReturn(Optional.of(customer));
-
-        // Chamar o método getCustomerById
         CustomerResponse customerResponse = customerService.getCustomerById(1);
-
-        // Verificar se o resultado é não nulo e os dados estão corretos
         Assertions.assertNotNull(customerResponse);
-        // Adicione verificações específicas conforme necessário
     }
 
     @Test
     public void test_get_customer_by_id_null() {
-        // Chamar o método getCustomerById com ID nulo
         CustomerResponse customerResponse = customerService.getCustomerById(null);
-
-        // Verificar se o resultado é nulo ou outra resposta adequada para entradas inválidas
         Assertions.assertNull(customerResponse);
     }
 
     @Test
     public void test_update_customer(){
-
-
-// Configurar o customerRepository para retornar um Customer atualizado
         Customer updatedCustomer = new Customer();
-
-        // Configurar o customerRepository para retornar um Customer atualizado
-       // Customer updatedCustomer = new Customer(/* Set dados atualizados */);
-
-
-        // Configurar o customerRepository para retornar um Customer atualizado
-        //Customer updatedCustomer = new Customer(/* Set dados atualizados */);
-
         Mockito.when(customerRepository.findById(Mockito.anyInt()))
                 .thenReturn(Optional.of(customer));
         Mockito.when(customerRepository.save(Mockito.any(Customer.class)))
                 .thenReturn(updatedCustomer);
 
-        // Chamar o método updateCustomer
         CustomerResponse customerResponse = customerService.updateCustomer(1, new CustomerRequest(
                 "Jéssica",
                 "test@test.com",
                 "password"));
-
-        // Verificar se o resultado é não nulo e os dados estão corretos
         Assertions.assertNotNull(customerResponse);
-        // Adicione verificações específicas conforme necessário
-
     }
 
     @Test
     public void test_delete_customer(){
-        // Configurar o customerRepository para retornar um Optional contendo um Customer existente
         Mockito.when(customerRepository.findById(Mockito.anyInt()))
                 .thenReturn(Optional.of(new Customer()));
-
-        // Chamar o método deleteCustomer
         Assertions.assertDoesNotThrow(() -> customerService.deleteCustomer(1));
-        // Verificar se a exclusão foi bem-sucedida (pode verificar se o método delete foi chamado)
     }
-
 
 }

@@ -2,10 +2,7 @@ package com.ada.SpaPetProjeto.controllers;
 
 import com.ada.SpaPetProjeto.controller.dto.CustomerRequest;
 import com.ada.SpaPetProjeto.controller.dto.CustomerResponse;
-import com.ada.SpaPetProjeto.model.Customer;
-import com.ada.SpaPetProjeto.repository.CustomerRepository;
 import com.ada.SpaPetProjeto.service.CustomerService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -21,8 +17,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc (addFilters=false)

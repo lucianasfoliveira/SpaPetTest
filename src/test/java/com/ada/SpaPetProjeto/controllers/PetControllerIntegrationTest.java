@@ -11,12 +11,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,6 +30,8 @@ public class PetControllerIntegrationTest {
 
     @Test
     public void test_add_pet() throws Exception {
+        PetRequest petRequest = new PetRequest("Buddy", "Dog", null);
+
         Pet addPet = new Pet();
         addPet.setId(1);
         addPet.setName("Buddy");
@@ -43,11 +43,11 @@ public class PetControllerIntegrationTest {
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/pet/add")
                         .content("""
-                                {
-                                    "name": "Buddy",
-                                    "type": "Dog",
-                                }
-                                """)
+                            {
+                                "name": "Buddy",
+                                "type": "Dog"
+                            }
+                            """)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         ).andExpect(

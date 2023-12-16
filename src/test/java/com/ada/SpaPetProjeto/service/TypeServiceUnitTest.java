@@ -48,21 +48,19 @@ public class TypeServiceUnitTest {
         typeRequest.setServiceDescription("Tosa Higienica");
         typeRequest.setServicePrice(60.0);
 
-        // Simula o comportamento de save() para retornar um objeto diferente com o nome alterado
         Mockito.when(typeRepository.save(Mockito.any(Type.class)))
                 .thenAnswer(invocation -> {
                     Type argument = invocation.getArgument(0);
-                    argument.setServiceName("Tosa"); // Altera para o nome desejado após o salvamento
+                    argument.setServiceName("Tosa");
                     return argument;
                 });
 
         Type savedType = typeService.saveType(typeRequest);
 
         Assertions.assertNotNull(savedType);
-        Assertions.assertEquals("Tosa", savedType.getServiceName()); // Verifica se o nome foi alterado corretamente
+        Assertions.assertEquals("Tosa", savedType.getServiceName());
         Mockito.verify(typeRepository, Mockito.times(1)).save(Mockito.any(Type.class));
     }
-
 
     @Test
     public void test_get_all_types() {
@@ -102,32 +100,24 @@ public class TypeServiceUnitTest {
 
     @Test
     public void test_update_type_existing_type() {
-        // Cenário de teste: Type existente
         Integer typeId = 1;
         TypeRequest typeRequest = new TypeRequest(/* set your request details */);
 
-        // Mock do Type existente
         Type existingType = new Type(/* set your existing type details */);
         Mockito.when(typeRepository.findById(typeId)).thenReturn(Optional.of(existingType));
 
-        // Execução do método
         Type updatedType = typeService.updateType(typeId, typeRequest);
 
-        // Verificação dos resultados
         Assertions.assertNotNull(updatedType);
-        // Faça as verificações necessárias com base na atualização do Type
     }
 
     @Test
     public void test_update_type_non_existing_type() {
-        // Cenário de teste: Type não existente
         Integer typeId = 1;
-        TypeRequest typeRequest = new TypeRequest(/* set your request details */);
+        TypeRequest typeRequest = new TypeRequest();
 
-        // Mock para quando o Type não é encontrado
         Mockito.when(typeRepository.findById(typeId)).thenReturn(Optional.empty());
 
-        // Execução do método e verificação da exceção
         Assertions.assertThrows(EntityNotFoundException.class, () -> {
             typeService.updateType(typeId, typeRequest);
         });
