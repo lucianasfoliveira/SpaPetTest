@@ -93,7 +93,6 @@ public class CustomerControllerIntegrationTest {
 
     @Test
     public void test_get_all_customers() throws Exception {
-        // Defina clientes existentes no seu repositório mockado ou simulado para validar a listagem.
         List<CustomerResponse> customers = Arrays.asList(
                 new CustomerResponse(1, "teste1@teste.com", "123456789"),
                 new CustomerResponse(2, "teste2@teste.com", "123456789")

@@ -5,7 +5,6 @@ import com.ada.SpaPetProjeto.controller.dto.TypeResponse;
 import com.ada.SpaPetProjeto.model.Type;
 import com.ada.SpaPetProjeto.service.TypeService;
 import com.ada.SpaPetProjeto.utils.TypeConvert;
-import org.aspectj.apache.bcel.classfile.annotation.RuntimeTypeAnnos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

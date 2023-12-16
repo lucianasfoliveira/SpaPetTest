@@ -11,7 +11,6 @@ import com.ada.SpaPetProjeto.repository.OrderRepository;
 import com.ada.SpaPetProjeto.repository.TypeRepository;
 import com.ada.SpaPetProjeto.utils.OrderConvert;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

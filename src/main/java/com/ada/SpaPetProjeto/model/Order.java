@@ -3,7 +3,6 @@ package com.ada.SpaPetProjeto.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Getter

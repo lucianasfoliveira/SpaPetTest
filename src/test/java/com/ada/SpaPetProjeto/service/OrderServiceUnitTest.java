@@ -55,21 +55,6 @@ public class OrderServiceUnitTest {
         Mockito.when(orderRepository.save(Mockito.any(Order.class))).thenReturn(mockOrder);
     }
 
- //   @Test
-//    void test_save_order() {
-//        OrderRequest orderRequest = new OrderRequest();
-//        Customer customer = new Customer();
-//        Type type = new Type();
-//
-//        Mockito.when(customerRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(customer));
-//        Mockito.when(typeRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(type));
-//        Mockito.when(orderRepository.save(Mockito.any(Order.class))).thenReturn(new Order());
-//
-//        OrderResponse orderResponse = orderService.saveOrder(orderRequest);
-//
-//        Assertions.assertNotNull(orderResponse);
-//    }
-
     @Test
     public void test_get_all_orders_empty() {
         Mockito.when(orderRepository.findAll()).thenReturn(new ArrayList<>());
