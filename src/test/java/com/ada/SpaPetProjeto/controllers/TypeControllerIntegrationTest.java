@@ -1,10 +1,10 @@
 package com.ada.SpaPetProjeto.controllers;
 
-import com.ada.SpaPetProjeto.controller.dto.PetResponse;
 import com.ada.SpaPetProjeto.controller.dto.TypeRequest;
 import com.ada.SpaPetProjeto.controller.dto.TypeResponse;
 import com.ada.SpaPetProjeto.model.Type;
 import com.ada.SpaPetProjeto.service.TypeService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
+
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 public class TypeControllerIntegrationTest {
@@ -28,16 +30,18 @@ public class TypeControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
-    public void test_add_type() throws Exception{
+    public void test_add_type() throws Exception {
         Type addType = new Type();
         addType.setId(1);
         addType.setServiceName("Banho");
         addType.setServicePrice(50);
         addType.setServiceDescription("Banho pet pequeno porte");
 
-        Mockito.when(typeService.saveType(Mockito.any(TypeRequest.class)))
+        when(typeService.saveType(Mockito.any(TypeRequest.class)))
                 .thenReturn(addType);
 
         mockMvc.perform(
@@ -66,7 +70,7 @@ public class TypeControllerIntegrationTest {
         type.setServiceName("Banho");
         type.setServicePrice(50);
 
-        Mockito.when(typeService.getTypeById(1))
+        when(typeService.getTypeById(1))
                 .thenReturn(type);
 
         mockMvc.perform(
@@ -83,10 +87,10 @@ public class TypeControllerIntegrationTest {
     public void test_get_all_types() throws Exception {
         List<TypeResponse> typeList = Arrays.asList(
                 new TypeResponse(1, "Banho", 50),
-                new TypeResponse(2 , "Tosa", 80)
+                new TypeResponse(2, "Tosa", 80)
         );
 
-        Mockito.when(typeService.getAllTypes())
+        when(typeService.getAllTypes())
                 .thenReturn(typeList);
 
         mockMvc.perform(
@@ -153,6 +157,52 @@ public class TypeControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         ).andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+//    @Test
+//    public void test_update_type() throws Exception {
+//        // Arrange
+//        int typeId = 1;
+//        TypeRequest updatedTypeRequest = new TypeRequest();
+//        Type updatedType = new Type(typeId, "Tosa", "Tosa pequeno porte", 80);
+//
+//        Mockito.when(typeService.updateType(Mockito.eq(typeId), Mockito.any(TypeRequest.class)))
+//                .thenReturn(updatedType);
+//
+//        // Act and Assert
+//        mockMvc.perform(
+//                        MockMvcRequestBuilders.put("/types/{id}", typeId)
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                                .accept(MediaType.APPLICATION_JSON)
+//                                .content(objectMapper.writeValueAsString(updatedTypeRequest))
+//                )
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.serviceName").value(updatedType.getServiceName()))
+//                //.andExpect(MockMvcResultMatchers.jsonPath("$.serviceDescription").value(updatedType.getServiceDescription()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.servicePrice").value(updatedType.getServicePrice()));
+//
+//        Mockito.verify(typeService, Mockito.times(1))
+//                .updateType(
+//                        Mockito.eq(typeId),
+//                        Mockito.argThat(request ->
+//                                request.getServiceName().equals(updatedTypeRequest.getServiceName()) &&
+//                                        request.getServicePrice().equals(updatedTypeRequest.getServicePrice())
+//                        )
+//                );
+//    }
+
+    @Test
+    public void test_delete_type() throws Exception {
+        int typeId = 1;
+        Mockito.doNothing().when(typeService).deleteType(typeId);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/types/{id}", typeId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isNoContent());
+
+        Mockito.verify(typeService, Mockito.times(1)).deleteType(typeId);
     }
 }
 

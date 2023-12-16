@@ -27,5 +27,6 @@ public class Type {
 
     public void setActive(boolean b) {
     }
+
 }
 
