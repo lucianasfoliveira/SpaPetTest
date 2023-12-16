@@ -17,28 +17,27 @@ import java.util.List;
 <span class="fc" id="L17">        Pet pet = new Pet();</span>
 <span class="fc" id="L18">        pet.setName(petDTO.getName());</span>
 <span class="fc" id="L19">        pet.setType(petDTO.getType());</span>
-<span class="fc" id="L20">        pet.setRace(String.valueOf(petDTO.getWeigth()));</span>
-<span class="fc" id="L21">        pet.setId(petDTO.getId());</span>
-<span class="fc" id="L22">        return pet;</span>
+<span class="fc" id="L20">        pet.setId(petDTO.getId());</span>
+<span class="fc" id="L21">        return pet;</span>
     }
 
 
     public static PetResponse toResponse(Pet pet) {
-<span class="fc" id="L27">        PetResponse petResponse = new PetResponse();</span>
-<span class="fc" id="L28">        petResponse.setName(pet.getName());</span>
-<span class="fc" id="L29">        petResponse.setType(pet.getType());</span>
-<span class="fc" id="L30">        petResponse.setId(pet.getId());</span>
-<span class="fc" id="L31">        return petResponse;</span>
+<span class="fc" id="L26">        PetResponse petResponse = new PetResponse();</span>
+<span class="fc" id="L27">        petResponse.setName(pet.getName());</span>
+<span class="fc" id="L28">        petResponse.setType(pet.getType());</span>
+<span class="fc" id="L29">        petResponse.setId(pet.getId());</span>
+<span class="fc" id="L30">        return petResponse;</span>
     }
 
     @Bean
     public static List&lt;PetResponse&gt; toResponseList(List&lt;Pet&gt; pets) {
-<span class="fc" id="L36">        List&lt;PetResponse&gt; petResponses = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L37" title="All 2 branches covered.">        for (Pet pet : pets) {</span>
-<span class="fc" id="L38">            PetResponse petResponse = PetConvert.toResponse(pet);</span>
-<span class="fc" id="L39">            petResponses.add(petResponse);</span>
-<span class="fc" id="L40">        }</span>
-<span class="fc" id="L41">        return petResponses;</span>
+<span class="fc" id="L35">        List&lt;PetResponse&gt; petResponses = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        for (Pet pet : pets) {</span>
+<span class="fc" id="L37">            PetResponse petResponse = PetConvert.toResponse(pet);</span>
+<span class="fc" id="L38">            petResponses.add(petResponse);</span>
+<span class="fc" id="L39">        }</span>
+<span class="fc" id="L40">        return petResponses;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -25,22 +25,9 @@ public class Pet {
     @Column(nullable = false)
 <span class="fc" id="L26">    private String type;</span>
 
-    @Column(name = &quot;datanascimento&quot;)
-    @Temporal(TemporalType.DATE)
-<span class="nc" id="L30">    private Date birthDate;</span>
-
-    @Column(name = &quot;genero&quot;)
-<span class="nc" id="L33">    private String gender;</span>
-
-    @Column(name = &quot;raca&quot;)
-<span class="nc" id="L36">    private String race;</span>
-
-    @Column(name = &quot;peso&quot;, nullable = false)
-<span class="nc" id="L39">    private double weight;</span>
-
     @ManyToOne
     @JoinColumn(name = &quot;dono_id&quot;)
-<span class="nc" id="L43">    private Customer owner;</span>
+<span class="nc" id="L30">    private Customer owner;</span>
 
 }
 

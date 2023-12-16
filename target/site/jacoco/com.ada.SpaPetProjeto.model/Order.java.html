@@ -18,16 +18,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 <span class="nc" id="L19">    private Integer id;</span>
 
-    @Column(name = &quot;datahora&quot;)
-    @Temporal(TemporalType.TIMESTAMP)
-<span class="nc" id="L23">    private Date dateTime;</span>
-
     @Column(name = &quot;totalprice&quot;, nullable = false)
-<span class="fc" id="L26">    private Double totalPrice;</span>
+<span class="fc" id="L22">    private Double totalPrice;</span>
 
     @ManyToOne
     @JoinColumn(name = &quot;customer_id&quot;)
-<span class="nc" id="L30">    private Customer customerId;</span>
+<span class="nc" id="L26">    private Customer customerId;</span>
 
     @ManyToMany
     @JoinTable(
@@ -35,7 +31,7 @@ public class Order {
             joinColumns = @JoinColumn(name = &quot;order_id&quot;),
             inverseJoinColumns = @JoinColumn(name = &quot;type_id&quot;)
     )
-<span class="nc" id="L38">    private List&lt;Type&gt; serviceId;</span>
+<span class="nc" id="L34">    private List&lt;Type&gt; serviceId;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -51,11 +51,11 @@ import java.util.List;
     @PutMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;PetResponse&gt; updatePet(
             @PathVariable Integer id, @RequestBody PetRequest petRequest){
-<span class="nc" id="L54">        return ResponseEntity.ok(petService.updatePet(id, petRequest));</span>
+<span class="fc" id="L54">        return ResponseEntity.ok(petService.updatePet(id, petRequest));</span>
     }
 
     @DeleteMapping(&quot;/{id}&quot;)
-<span class="nc" id="L58">    public void deletePet(@PathVariable Integer id){petService.deletePet(id);}</span>
+<span class="fc" id="L58">    public void deletePet(@PathVariable Integer id){petService.deletePet(id);}</span>
 
 
 }

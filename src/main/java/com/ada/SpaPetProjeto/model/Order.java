@@ -18,10 +18,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "datahora")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateTime;
-
     @Column(name = "totalprice", nullable = false)
     private Double totalPrice;
 

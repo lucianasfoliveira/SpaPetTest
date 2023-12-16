@@ -3,6 +3,7 @@ com\ada\SpaPetProjeto\service\AuthenticationServiceUnitTest.class
 com\ada\SpaPetProjeto\service\OrderServiceUnitTest.class
 com\ada\SpaPetProjeto\service\CustomerServiceUnitTest.class
 com\ada\SpaPetProjeto\controllers\PetControllerIntegrationTest.class
+com\ada\SpaPetProjeto\controllers\TypeControllerIntegrationTest.class
 com\ada\SpaPetProjeto\SpaPetProjetoApplicationTests.class
 com\ada\SpaPetProjeto\controllers\OrderControllerIntegrationTest.class
 com\ada\SpaPetProjeto\service\PetServiceUnitTest.class

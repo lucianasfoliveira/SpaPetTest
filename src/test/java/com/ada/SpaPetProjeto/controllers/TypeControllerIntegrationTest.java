@@ -161,23 +161,7 @@ public class TypeControllerIntegrationTest {
         ).andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
-//    @Test
-//    public void test_update_type_by_id() throws Exception {
-//        int typeId = 1;
-//
-//        mockMvc.perform(
-//                MockMvcRequestBuilders.put("/types/{id}", typeId)
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .accept(MediaType.APPLICATION_JSON)
-//                        .content("""
-//                                {
-//                                    "servicePrice": 50,
-//                                    "serviceName": "Banho",
-//                                    "serviceDescription": "Banho porte pequeno"
-//                                }
-//                                """)
-//        ).andExpect(status().isBadRequest());
-//    }
+
 
     @Test
     public void test_delete_type() throws Exception {
@@ -192,6 +176,7 @@ public class TypeControllerIntegrationTest {
 
         Mockito.verify(typeService, Mockito.times(1)).deleteType(typeId);
     }
+
 }
 
 
