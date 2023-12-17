@@ -87,10 +87,10 @@ Este projeto inclui testes unitários para garantir o funcionamento adequado dos
 
 ### Testes de Integração
 Além dos testes unitários, a aplicação também inclui testes de integração para verificar o comportamento dos endpoints da API. Os testes são organizados da seguinte forma:
-- CustomerControllerUnitTest: Testes para os endpoints relacionados aos clientes.
-- OrderControllerUnitTest: Testes para os endpoints relacionados aos pedidos.
-- PetControllerUnitTest: Testes para os endpoints relacionados aos pets.
-- TypeControllerUnitTest: Testes para os endpoints relacionados aos tipos de serviço.
+- CustomerControllerIntegrationTest: Testes para os endpoints relacionados aos clientes.
+- OrderControllerIntegrationTest: Testes para os endpoints relacionados aos pedidos.
+- PetControllerIntegrationTest: Testes para os endpoints relacionados aos pets.
+- TypeControllerIntegrationTest: Testes para os endpoints relacionados aos tipos de serviço.
 
 ### Observações
 - Não incluímos testes para validações e autenticações específicas devido às diretrizes fornecidas no enunciado do projeto. O que faz com que esses erros sejam retornados:
