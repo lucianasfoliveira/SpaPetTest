@@ -1,8 +1,5 @@
 # Projeto SpaPetTest
 
-## Participantes
-Jessica de Oliveira Alves | Jessica Lima | Luciana Souza Ferreira de Oliveira
-
 ## Introdução
 Este é um projeto de uma API REST desenvolvido em Spring Boot para gerenciar um SPA Pet, incluindo operações CRUD (Create, Read, Update, Delete) para serviços, cliente, pet e pedidos. O projeto também inclui autenticação básica usando o Spring Security e utiliza o banco de dados H2.
 
@@ -99,6 +96,8 @@ Rule violated for package com.ada.SpaPetProjeto.controller.configuration: method
 
 Rule violated for package com.ada.SpaPetProjeto.controller.exception: methods covered ratio is 0.00, but expected minimum is 0.40
 
-- Além dos testes unitários e de integração incluídos neste repositório, temos um projeto que implementa 2 cenários de teste end-to-end. Este projeto pode ser acessado no [SpaPet-test](https://github.com/Jeeh2/SpaPet-test).
+- Além dos testes unitários e de integração incluídos neste repositório, temos um projeto que implementa 2 cenários de teste end-to-end. Este projeto pode ser acessado no [SpaPet-test](https://github.com/lucianasfoliveira/SpaPetTeste2).
 
+## Participantes
+Jessica de Oliveira Alves | Jessica Lima | Luciana Souza Ferreira de Oliveira
 
